@@ -5,7 +5,10 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    HeaderNav: typeof import('./src/components/HeaderNav/HeaderNav.vue')['default']
+    GlobalFooter: typeof import('./src/components/GlobalFooter/GlobalFooter.vue')['default']
+    GlobalHeaderNav: typeof import('./src/components/GlobalHeaderNav/GlobalHeaderNav.vue')['default']
+    HeaderNav: typeof import('./src/components/GlobalHeaderNav/HeaderNav.vue')['default']
+    NButton: typeof import('naive-ui')['NButton']
     NLayout: typeof import('naive-ui')['NLayout']
     NLayoutContent: typeof import('naive-ui')['NLayoutContent']
     NLayoutSider: typeof import('naive-ui')['NLayoutSider']

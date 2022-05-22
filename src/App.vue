@@ -1,11 +1,9 @@
 <script setup lang="ts">
-// import { RouterLink, RouterView } from "vue-router";
-import Store from "@/views/Store/Store.vue";
+import { RouterLink, RouterView } from "vue-router"
 </script>
 
 <template>
-  <Store/>
+    <RouterView />
 </template>
 
-<style>
-</style>
+<style></style>
