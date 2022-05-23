@@ -1,16 +1,16 @@
 package com.store.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
- * 
  * @TableName a_store_user
  */
-@TableName(value ="a_store_user")
+@TableName(value = "a_store_user")
 @Data
 public class AStoreUser implements Serializable {
     /**
@@ -48,6 +48,7 @@ public class AStoreUser implements Serializable {
     /**
      * 注册时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     @TableField(exist = false)
