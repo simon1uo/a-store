@@ -89,7 +89,10 @@ public class AStoreUserAddressServiceImpl extends ServiceImpl<AStoreUserAddressM
 
     @Override
     public Boolean deleteUserAddressById(Long addressId) {
-        return aStoreUserAddressMapper.deleteById(addressId) > 0;
+        AStoreUserAddress aStoreUserAddress = new AStoreUserAddress();
+        aStoreUserAddress.setAddressId(addressId);
+        aStoreUserAddress.setIsDeleted(1);
+        return aStoreUserAddressMapper.updateById(aStoreUserAddress) > 0;
     }
 
     /**
