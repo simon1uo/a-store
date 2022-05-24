@@ -6,9 +6,11 @@ import router from "./router"
 
 import "normalize.css"
 import "@/assets/css/index.less"
+import { globalRegister } from "@/global"
 
 const app = createApp(App)
 
+app.use(globalRegister)
 app.use(createPinia())
 app.use(router)
 
