@@ -1,4 +1,4 @@
-package com.store.controller;
+package com.store.controller.store;
 
 import com.store.common.BaseResponseCommon;
 import com.store.constant.ErrorCodeEnum;
