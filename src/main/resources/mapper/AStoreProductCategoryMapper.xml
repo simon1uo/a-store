@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.mapper.AStoreProductCategoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.store.domain.AStoreProductCategory">
+        <id property="categoryId" column="category_id" jdbcType="BIGINT"/>
+        <result property="categoryLevel" column="category_level" jdbcType="TINYINT"/>
+        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+        <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
+        <result property="categoryRank" column="category_rank" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createAdmin" column="create_admin" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateAdmin" column="update_admin" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        category_id
+        ,category_level,parent_id,
+        category_name,category_rank,is_deleted,
+        create_time,create_admin,update_time,
+        update_admin
+    </sql>
+</mapper>
