@@ -12,7 +12,7 @@ public class AStoreUserAddressVO {
 
     private String userPhone;
 
-    private Byte defaultFlag;
+    private Integer defaultFlag;
 
     private String provinceName;
 

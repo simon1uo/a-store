@@ -107,7 +107,7 @@ public class AStoreUserAddressServiceImpl extends ServiceImpl<AStoreUserAddressM
         queryWrapper.eq("default_flag", 1);
         AStoreUserAddress aStoreUserAddress = aStoreUserAddressMapper.selectOne(queryWrapper);
         if (aStoreUserAddress == null)
-            throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR, CommonServiceEnum.DATABASE_ERROR.getResult());
+            throw new BusinessException(ErrorCodeEnum.NULL_ERROR, CommonServiceEnum.DATABASE_ERROR.getResult());
         return aStoreUserAddress;
     }
 }
