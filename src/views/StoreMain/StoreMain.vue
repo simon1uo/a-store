@@ -6,15 +6,24 @@ import CarouselCard from "@/views/StoreMain/components/CarouselCard.vue"
 
 // config
 import { carouselCardConfig } from "@/views/StoreMain/config/carouselCard.config"
-import { computed, onMounted } from "vue"
+import { computed, ref } from "vue"
 import { useMainStore } from "@/stores/main"
 
+import GlobalDialog from "@/components/GlobalDialog/GlobalDialog.vue"
+import ProductDetail from "@/views/ProductDetail/ProductDetail.vue"
+
 const mainStore = useMainStore()
-onMounted(() => {
-    mainStore.getCategoryCardItemsAction()
-})
 
 const categoryCardItems = computed(() => mainStore.categoryCardItems)
+
+const productDialogRef = ref<InstanceType<any>>(null)
+
+const productDetailRef = ref<InstanceType<any>>(null)
+
+const handleProductDetailClick = (item: any) => {
+    productDialogRef.value.handleOpen()
+    productDetailRef.value.handleGetProductDetail(item)
+}
 </script>
 
 <template>
@@ -24,9 +33,16 @@ const categoryCardItems = computed(() => mainStore.categoryCardItems)
 
             <CardShelf :category-card-items="categoryCardItems" />
 
-            <CarouselCard v-bind="carouselCardConfig[0]" />
+            <CarouselCard
+                v-bind="carouselCardConfig[0]"
+                @handleItemClick="handleProductDetailClick"
+            />
 
             <ContentFooter />
+
+            <GlobalDialog ref="productDialogRef">
+                <ProductDetail ref="productDetailRef" />
+            </GlobalDialog>
         </div>
     </div>
 </template>

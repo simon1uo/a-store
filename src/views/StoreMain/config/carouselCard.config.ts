@@ -4,6 +4,7 @@ export const carouselCardConfig = [
         subtitle: "快来认识一下这些新朋友。",
         carouselCardItems: [
             {
+                itemProductId: "1",
                 itemTextColor: "#000",
                 itemTitle: "强得很",
                 itemSubtitle: "IPHONE 13 PRO",
@@ -15,6 +16,7 @@ export const carouselCardConfig = [
                 itemUrl: "#"
             },
             {
+                itemProductId: "2",
                 itemTextColor: "#FFF",
                 itemTitle: "轻, 靓, 重量级",
                 itemSubtitle: "IPAD AIR",
@@ -25,6 +27,7 @@ export const carouselCardConfig = [
                 itemUrl: "#"
             },
             {
+                itemProductId: "3",
                 itemTextColor: "#000",
                 itemTitle: "造梦引擎",
                 itemSubtitle: "MAC STUDIO",

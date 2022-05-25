@@ -6,8 +6,8 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCarousel: typeof import("element-plus/es")["ElCarousel"]
-    ElCarouselItem: typeof import("element-plus/es")["ElCarouselItem"]
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElForm: typeof import('element-plus/es')['ElForm']
@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    GlobalDialog: typeof import('./src/components/GlobalDialog/GlobalDialog.vue')['default']
     GlobalFooter: typeof import('./src/components/GlobalFooter/GlobalFooter.vue')['default']
     GlobalHeaderNav: typeof import('./src/components/GlobalHeaderNav/GlobalHeaderNav.vue')['default']
     HeaderNav: typeof import("./src/components/GlobalHeaderNav/HeaderNav.vue")["default"]

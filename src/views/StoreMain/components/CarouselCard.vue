@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { defineEmits } from "vue"
 import CarouselCardItem from "@/views/StoreMain/components/CarouselCardItem.vue"
 
 defineProps({
@@ -6,6 +7,13 @@ defineProps({
     subtitle: String,
     carouselCardItems: Array
 })
+
+const emits = defineEmits(["handleItemClick"])
+
+const handleItemClick = (item: any) => {
+    // console.log("handle click", item)
+    emits("handleItemClick", item)
+}
 </script>
 
 <template>
@@ -20,6 +28,7 @@ defineProps({
                 v-for="(item, index) in carouselCardItems"
                 :key="index"
                 v-bind="item"
+                @click="handleItemClick(item)"
             />
         </div>
     </div>
