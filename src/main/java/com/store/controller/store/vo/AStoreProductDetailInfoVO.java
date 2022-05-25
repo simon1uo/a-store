@@ -16,6 +16,8 @@ public class AStoreProductDetailInfoVO implements Serializable {
 
     private String productCoverImageUrl;
 
+    private String productCarouselImageUrl;
+
     private String productDetailContent;
 
     private Integer sellingPrice;
