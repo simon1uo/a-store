@@ -1,7 +1,7 @@
 package com.store.constant;
 
 
-public enum AStoreUserServiceResultEnum {
+public enum UserResultEnum {
     USER_NULL_ERROR("用户不存在"),
     SAME_USER_ACCOUNT_EXIST("用户已存在"),
     USER_ACCOUNT_AND_PASSWORD_NULL("用户账号或者密码不能为空"),
@@ -19,7 +19,7 @@ public enum AStoreUserServiceResultEnum {
     ;
     private String result;
 
-    AStoreUserServiceResultEnum(String result) {
+    UserResultEnum(String result) {
         this.result = result;
     }
 

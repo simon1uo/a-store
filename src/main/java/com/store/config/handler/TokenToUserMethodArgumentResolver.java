@@ -2,9 +2,9 @@ package com.store.config.handler;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.store.config.annotation.TokenToUser;
-import com.store.constant.AStoreUserServiceResultEnum;
 import com.store.constant.CommonConstant;
 import com.store.constant.ErrorCodeEnum;
+import com.store.constant.UserResultEnum;
 import com.store.domain.AStoreUser;
 import com.store.domain.AStoreUserToken;
 import com.store.exception.BusinessException;
@@ -53,14 +53,14 @@ public class TokenToUserMethodArgumentResolver implements HandlerMethodArgumentR
                 AStoreUserToken aStoreUserToken = aStoreUserTokenMapper.selectOne(tokenQueryWrapper);
 
                 if (aStoreUserToken == null || aStoreUserToken.getExpireTime().getTime() <= System.currentTimeMillis()) {
-                    throw new BusinessException(ErrorCodeEnum.NOT_LOGIN, AStoreUserServiceResultEnum.TOKEN_EXPIRE_ERROR.getResult());
+                    throw new BusinessException(ErrorCodeEnum.NOT_LOGIN, UserResultEnum.TOKEN_EXPIRE_ERROR.getResult());
                 }
 
                 aStoreUser = aStoreUserMapper.selectById(aStoreUserToken.getUserId());
                 if (aStoreUser == null)
-                    throw new BusinessException(ErrorCodeEnum.NOT_LOGIN, AStoreUserServiceResultEnum.USER_NULL_ERROR.getResult());
+                    throw new BusinessException(ErrorCodeEnum.NOT_LOGIN, UserResultEnum.USER_NULL_ERROR.getResult());
                 if (aStoreUser.getLockedFlag() == 1)
-                    throw new BusinessException(ErrorCodeEnum.NO_AUTH, AStoreUserServiceResultEnum.SIGNIN_USER_LOCKED_ERROR.getResult());
+                    throw new BusinessException(ErrorCodeEnum.NO_AUTH, UserResultEnum.SIGNIN_USER_LOCKED_ERROR.getResult());
 
                 return aStoreUser;
             } else {
