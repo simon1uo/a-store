@@ -14,6 +14,8 @@ declare module '@vue/runtime-core' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     GlobalFooter: typeof import('./src/components/GlobalFooter/GlobalFooter.vue')['default']
     GlobalHeaderNav: typeof import('./src/components/GlobalHeaderNav/GlobalHeaderNav.vue')['default']
     HeaderNav: typeof import("./src/components/GlobalHeaderNav/HeaderNav.vue")["default"]
