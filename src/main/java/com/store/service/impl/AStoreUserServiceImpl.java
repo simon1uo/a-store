@@ -2,9 +2,9 @@ package com.store.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.store.constant.AStoreUserServiceResultEnum;
 import com.store.constant.CommonServiceEnum;
 import com.store.constant.ErrorCodeEnum;
+import com.store.constant.UserResultEnum;
 import com.store.controller.store.vo.AStoreUserInfoVO;
 import com.store.domain.AStoreUser;
 import com.store.domain.AStoreUserToken;
@@ -44,25 +44,25 @@ public class AStoreUserServiceImpl extends ServiceImpl<AStoreUserMapper, AStoreU
     public String UserSignIn(String userAccount, String userPassword) {
         // 输入不能为空
         if (StringUtils.isAnyBlank(userAccount, userPassword))
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.USER_ACCOUNT_AND_PASSWORD_NULL.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_ACCOUNT_AND_PASSWORD_NULL.getResult());
         // 规范长度
         if (userAccount.length() < 4)
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.USER_PASSWORD_LENGTH_ERROR.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_PASSWORD_LENGTH_ERROR.getResult());
         if (userPassword.length() < 8)
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.USER_PASSWORD_LENGTH_ERROR.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_PASSWORD_LENGTH_ERROR.getResult());
         // 检验账户是否存在
         if (!isUserExist(userAccount))
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.SAME_USER_ACCOUNT_EXIST.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.SAME_USER_ACCOUNT_EXIST.getResult());
 
         // 验证账户与密码
         String encryptPassword = MD5Util.MD5Encode(userPassword, "UTF-8");
         AStoreUser loginUser = this.isUserCorrect(userAccount, encryptPassword);
         if (loginUser == null)
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.USER_ACCOUNT_AND_PASSWORD_ERROR.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_ACCOUNT_AND_PASSWORD_ERROR.getResult());
 
         // 账户是否被锁定
         if (loginUser.getLockedFlag() == 1)
-            throw new BusinessException(ErrorCodeEnum.NO_AUTH, AStoreUserServiceResultEnum.SIGNIN_USER_LOCKED_ERROR.getResult());
+            throw new BusinessException(ErrorCodeEnum.NO_AUTH, UserResultEnum.SIGNIN_USER_LOCKED_ERROR.getResult());
 
 
         // 生成新的token
@@ -100,30 +100,30 @@ public class AStoreUserServiceImpl extends ServiceImpl<AStoreUserMapper, AStoreU
     public String UserSignUp(String userAccount, String userPassword, String checkPassword) {
         // 不能为空
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword))
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.USER_ACCOUNT_AND_PASSWORD_NULL.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_ACCOUNT_AND_PASSWORD_NULL.getResult());
 
         // 规范长度
         if (userAccount.length() < 4)
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.USER_ACCOUNT_LENGTH_ERROR.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_ACCOUNT_LENGTH_ERROR.getResult());
         if (userPassword.length() < 8 || checkPassword.length() < 8)
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.USER_PASSWORD_LENGTH_ERROR.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_PASSWORD_LENGTH_ERROR.getResult());
 
         // 检验账户名不含特殊字符
         String validPattern = "[`~!@#$%^&*()+=|{}':;',\\\\[\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
         Matcher matcher = Pattern.compile(validPattern).matcher(userAccount);
         if (matcher.find())
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.USER_ACCOUNT_INPUT_ERROR.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_ACCOUNT_INPUT_ERROR.getResult());
 
         // 两个密码是否相同
         if (!userPassword.equals(checkPassword))
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.USER_PASSWORD_SAME_ERROR.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_PASSWORD_SAME_ERROR.getResult());
 
         // 检验账户是否存在
         if (isUserExist(userAccount))
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, AStoreUserServiceResultEnum.SAME_USER_ACCOUNT_EXIST.getResult());
+            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.SAME_USER_ACCOUNT_EXIST.getResult());
 
         // 加密
-//        String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
+        //        String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
         String encryptPassword = MD5Util.MD5Encode(userPassword, "UTF-8");
 
         // 插入数据到数据库
