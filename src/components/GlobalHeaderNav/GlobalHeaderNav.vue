@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref } from "vue"
+import { computed, ref } from "vue"
+import { useUserStore } from "@/stores/user"
 
 // for desktop version
 let isSearchHide = ref(true)
@@ -55,6 +56,16 @@ let isMobileBagShow = ref(false)
 const handleMobileBagBtn = () => {
     isMobileBagShow.value = !isMobileBagShow.value
     isOverlayShow.value = !isOverlayShow.value
+}
+
+// handle isLogin
+const userStore = useUserStore()
+
+const isUserSignIn = computed(() => userStore.isUserSignIn)
+const userName = computed(() => userStore.userName)
+
+const handleSignOut = () => {
+    userStore.userSignOutAction()
 }
 </script>
 
@@ -113,14 +124,10 @@ const handleMobileBagBtn = () => {
                     <a href="#">💡 技术支持</a>
                 </li>
                 <li>
-                    <a
-                        href="#"
-                        class="link-search"
-                        @click="handleSearchBtn"
-                    ></a>
+                    <a class="link-search" @click="handleSearchBtn"></a>
                 </li>
                 <li>
-                    <a href="#" class="link-bag" @click="handleBagBtn"></a>
+                    <a class="link-bag" @click="handleBagBtn"></a>
                 </li>
             </ul>
         </nav>
@@ -222,21 +229,38 @@ const handleMobileBagBtn = () => {
                                 订单
                             </a>
                         </li>
-                        <li class="bag-nav-item bag-nav-item-account">
-                            <a
-                                href="#"
+                        <li
+                            class="bag-nav-item bag-nav-item-account"
+                            v-show="isUserSignIn"
+                        >
+                            <router-link
+                                to="/store/account/manage"
                                 class="bag-nav-link bag-nav-link-account"
                             >
                                 账户
-                            </a>
+                            </router-link>
                         </li>
-                        <li class="bag-nav-item bag-nav-item-signIn">
+                        <li
+                            class="bag-nav-item bag-nav-item-signIn"
+                            v-show="!isUserSignIn"
+                        >
                             <router-link
-                                to="/login"
+                                to="/signin"
                                 class="bag-nav-link bag-nav-link-signIn"
                             >
                                 登录
                             </router-link>
+                        </li>
+                        <li
+                            class="bag-nav-item bag-nav-item-signIn"
+                            v-show="isUserSignIn"
+                        >
+                            <div
+                                class="bag-nav-link bag-nav-link-signIn"
+                                @click="handleSignOut"
+                            >
+                                退出登录 {{ userName }}
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -277,7 +301,10 @@ const handleMobileBagBtn = () => {
                                 账户
                             </a>
                         </li>
-                        <li class="bag-nav-item bag-nav-item-signIn">
+                        <li
+                            class="bag-nav-item bag-nav-item-signIn"
+                            v-show="!isUserSignIn"
+                        >
                             <a
                                 href="#"
                                 class="bag-nav-link bag-nav-link-signIn"

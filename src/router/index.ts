@@ -1,20 +1,29 @@
 import { createRouter, createWebHistory } from "vue-router"
+import type { RouteRecordRaw } from "vue-router"
 
-import StoreMain from "@/views/StoreMain/StoreMain.vue"
+import storeAccount from "./modules/store-account"
+
+const constantRoute: RouteRecordRaw[] = [
+    {
+        path: "/",
+        redirect: "/store"
+    },
+    {
+        path: "/store",
+        name: "StoreMain",
+        component: () => import("@/views/StoreMain/StoreMain.vue")
+    },
+    {
+        path: "/signin/",
+        name: "StoreSignIn",
+        component: () => import("@/views/StoreSignIn/StoreSignIn.vue")
+    },
+    storeAccount
+]
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {
-            path: "/store",
-            name: "Store",
-            component: StoreMain
-        },
-        {
-            path: "/",
-            redirect: "/store"
-        }
-    ]
+    routes: constantRoute
 })
 
 export default router
