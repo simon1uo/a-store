@@ -1,21 +1,28 @@
 <script lang="ts" setup>
-import GlobalHeaderNav from "@/components/GlobalHeaderNav/GlobalHeaderNav.vue"
 import ContentHeader from "@/views/StoreMain/components/ContentHeader.vue"
 import CardShelf from "@/views/StoreMain/components/CardShelf.vue"
 import ContentFooter from "@/views/StoreMain/components/ContentFooter.vue"
+import CarouselCard from "@/views/StoreMain/components/CarouselCard.vue"
 
 // config
 import { carouselCardConfig } from "@/views/StoreMain/config/carouselCard.config"
-import CarouselCard from "@/views/StoreMain/components/CarouselCard.vue"
+import { computed, onMounted } from "vue"
+import { useMainStore } from "@/stores/main"
+
+const mainStore = useMainStore()
+onMounted(() => {
+    mainStore.getCategoryCardItemsAction()
+})
+
+const categoryCardItems = computed(() => mainStore.categoryCardItems)
 </script>
 
 <template>
     <div id="store-main">
-        <GlobalHeaderNav />
         <div class="store-main-container">
             <ContentHeader />
 
-            <CardShelf />
+            <CardShelf :category-card-items="categoryCardItems" />
 
             <CarouselCard v-bind="carouselCardConfig[0]" />
 

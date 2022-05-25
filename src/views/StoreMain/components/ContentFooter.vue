@@ -9,13 +9,17 @@ import GlobalFooter from "@/components/GlobalFooter/GlobalFooter.vue"
             <div class="footer-quicklinks-items">
                 <ul class="footer-quicklinks-list">
                     <li class="footer-quicklinks-item">
-                        <n-button tertiary round> 订单状态</n-button>
+                        <el-button color="#6e6e73" plain round>
+                            订单状态
+                        </el-button>
                     </li>
                     <li class="footer-quicklinks-item">
-                        <n-button tertiary round> 购买帮助</n-button>
+                        <el-button color="#6e6e73" plain round>
+                            购买帮助
+                        </el-button>
                     </li>
                     <li class="footer-quicklinks-item">
-                        <n-button tertiary round> 退货</n-button>
+                        <el-button color="#6e6e73" plain round> 退货</el-button>
                     </li>
                 </ul>
             </div>
