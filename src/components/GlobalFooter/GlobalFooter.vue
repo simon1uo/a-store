@@ -61,6 +61,14 @@
 
 <style lang="less" scoped>
 .globalfooter {
+    --footer-font-size: 6px;
+    --footer-background: #f5f5f7;
+    --footer-border-color: #d2d2d7;
+    --footer-text-color: #6e6e73;
+    --footer-link-color: #424245;
+    --footer-directory-title-color: #1d1d1f;
+    --footer-directory-title-color-hover: #000;
+    --footer-mini-shop-link-color: #0066cc;
     .globalfooter-content {
         .globalfooter-breadcrumbs {
             padding: 17px 0;
