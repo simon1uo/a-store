@@ -6,13 +6,17 @@ import CarouselCard from "@/views/StoreMain/components/CarouselCard.vue"
 
 // config
 import { carouselCardConfig } from "@/views/StoreMain/config/carouselCard.config"
-import { computed, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { useMainStore } from "@/stores/main"
 
 import GlobalDialog from "@/components/GlobalDialog/GlobalDialog.vue"
 import ProductDetail from "@/views/ProductDetail/ProductDetail.vue"
 
 const mainStore = useMainStore()
+
+onMounted(() => {
+    mainStore.getCategoryCardItemsAction()
+})
 
 const categoryCardItems = computed(() => mainStore.categoryCardItems)
 
