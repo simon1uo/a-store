@@ -70,6 +70,7 @@
     --footer-directory-title-color-hover: #000;
     --footer-mini-shop-link-color: #0066cc;
     .globalfooter-content {
+        padding-top: 20px;
         .globalfooter-breadcrumbs {
             padding: 17px 0;
             position: relative;
