@@ -5,6 +5,7 @@ export const useProductStore = defineStore({
     id: "product",
     state: () => ({
         productDetail: {
+            productId: "",
             productCarouselImageUrl: "",
             productDetailContent: ""
         }

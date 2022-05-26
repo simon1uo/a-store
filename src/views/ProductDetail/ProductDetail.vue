@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useProductStore } from "@/stores/product"
 import { computed } from "vue"
+import { useRouter } from "vue-router"
 
 const productStore = useProductStore()
 
@@ -13,6 +14,14 @@ const productCarouselImages = computed(() => productStore.productCarouselImages)
 const productDetailContentInfos = computed(
     () => productStore.productDetailInfos
 )
+
+const router = useRouter()
+
+const handleBuyBtn = () => {
+    // console.log(productDetailInfo.value.productId)
+    router.push("/store/product/" + productDetailInfo.value.productId)
+}
+
 defineExpose({
     handleGetProductDetail
 })
@@ -48,7 +57,11 @@ defineExpose({
                                 CNY¥ {{ productDetailInfo.sellingPrice }} 起
                             </div>
                             <div class="product-btn">
-                                <el-button color="#06c" round size="large"
+                                <el-button
+                                    color="#06c"
+                                    round
+                                    size="large"
+                                    @click="handleBuyBtn"
                                     >购买</el-button
                                 >
                             </div>

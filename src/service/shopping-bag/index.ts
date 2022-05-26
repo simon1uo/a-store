@@ -1,5 +1,8 @@
 import api from "@/service"
-import type { IShopingBagItem } from "@/service/shopping-bag/type"
+import type {
+    IShoppingBagAddItem,
+    IShoppingBagUpdateItem
+} from "@/service/shopping-bag/type"
 
 const shoppingBagAPI = {
     getBag: "/bag",
@@ -9,22 +12,22 @@ const shoppingBagAPI = {
     deleteBag: "/bag/" // + id
 }
 
-export function getCart(param: IShopingBagItem) {
-    return api.get(shoppingBagAPI.getBag, { params: param })
+export function getBagList() {
+    return api.get(shoppingBagAPI.getBag)
 }
 
-export function addToBag(param: IShopingBagItem) {
+export function addToBag(param: IShoppingBagAddItem) {
     return api.post(shoppingBagAPI.addToBag, param)
 }
 
-export function modifyCart(param: IShopingBagItem) {
+export function updateBagItem(param: IShoppingBagUpdateItem) {
     return api.put(shoppingBagAPI.modifyBag, param)
 }
 
-export function deleteCartItem(id: string) {
-    return api.delete(shoppingBagAPI.deleteBag + id)
+export function removeBagItem(bagItemId: number) {
+    return api.delete(shoppingBagAPI.deleteBag + bagItemId)
 }
 
-export function getByCartItemIds(params: IShopingBagItem) {
+/*export function getByCartItemIds(params: IShoppingBagAddItem) {
     return api.get(shoppingBagAPI.getBagItemByIds, { params })
-}
+}*/

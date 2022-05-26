@@ -209,9 +209,12 @@ const handleSignOut = () => {
                 <div class="bag-nav">
                     <ul class="bag-nav-list bag-nav-nobtn">
                         <li class="bag-nav-item bag-nav-item-bag">
-                            <a href="#" class="bag-nav-link bag-nav-link-bag">
+                            <router-link
+                                to="/store/bag"
+                                class="bag-nav-link bag-nav-link-bag"
+                            >
                                 购物袋
-                            </a>
+                            </router-link>
                         </li>
                         <li class="bag-nav-item bag-nav-item-savedbyyou">
                             <a
@@ -273,9 +276,12 @@ const handleSignOut = () => {
                 <div class="bag-nav">
                     <ul class="bag-nav-list bag-nav-nobtn">
                         <li class="bag-nav-item bag-nav-item-bag">
-                            <a href="#" class="bag-nav-link bag-nav-link-bag">
+                            <router-link
+                                to="/store/bag"
+                                class="bag-nav-link bag-nav-link-bag"
+                            >
                                 购物袋
-                            </a>
+                            </router-link>
                         </li>
                         <li class="bag-nav-item bag-nav-item-savedbyyou">
                             <a
@@ -293,24 +299,38 @@ const handleSignOut = () => {
                                 订单
                             </a>
                         </li>
-                        <li class="bag-nav-item bag-nav-item-account">
-                            <a
-                                href="#"
+                        <li
+                            class="bag-nav-item bag-nav-item-account"
+                            v-show="isUserSignIn"
+                        >
+                            <router-link
+                                to="/store/account/manage"
                                 class="bag-nav-link bag-nav-link-account"
                             >
                                 账户
-                            </a>
+                            </router-link>
                         </li>
                         <li
                             class="bag-nav-item bag-nav-item-signIn"
                             v-show="!isUserSignIn"
                         >
-                            <a
-                                href="#"
+                            <router-link
+                                to="/signin"
                                 class="bag-nav-link bag-nav-link-signIn"
                             >
                                 登录
-                            </a>
+                            </router-link>
+                        </li>
+                        <li
+                            class="bag-nav-item bag-nav-item-signIn"
+                            v-show="isUserSignIn"
+                        >
+                            <div
+                                class="bag-nav-link bag-nav-link-signIn"
+                                @click="handleSignOut"
+                            >
+                                退出登录 {{ userName }}
+                            </div>
                         </li>
                     </ul>
                 </div>
