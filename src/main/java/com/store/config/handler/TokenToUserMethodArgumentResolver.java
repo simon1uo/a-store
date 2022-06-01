@@ -53,7 +53,8 @@ public class TokenToUserMethodArgumentResolver implements HandlerMethodArgumentR
                 AStoreUserToken aStoreUserToken = aStoreUserTokenMapper.selectOne(tokenQueryWrapper);
 
                 if (aStoreUserToken == null || aStoreUserToken.getExpireTime().getTime() <= System.currentTimeMillis()) {
-                    throw new BusinessException(ErrorCodeEnum.NOT_LOGIN, UserResultEnum.TOKEN_EXPIRE_ERROR.getResult());
+//                    throw new BusinessException(ErrorCodeEnum.NOT_LOGIN, UserResultEnum.TOKEN_EXPIRE_ERROR.getResult());
+                    return null;
                 }
 
                 aStoreUser = aStoreUserMapper.selectById(aStoreUserToken.getUserId());
@@ -64,7 +65,7 @@ public class TokenToUserMethodArgumentResolver implements HandlerMethodArgumentR
 
                 return aStoreUser;
             } else {
-                throw new BusinessException(ErrorCodeEnum.NOT_LOGIN);
+                return null;
             }
         }
         return null;
