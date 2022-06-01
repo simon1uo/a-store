@@ -13,6 +13,7 @@ import com.store.mapper.AStoreProductInfoMapper;
 import com.store.mapper.AStoreShoppingBagItemMapper;
 import com.store.service.AStoreShoppingBagItemService;
 import com.store.util.BeanUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
  * @createDate 2022-05-24 16:48:07
  */
 @Service
+@Slf4j
 public class AStoreShoppingBagItemServiceImpl extends ServiceImpl<AStoreShoppingBagItemMapper, AStoreShoppingBagItem>
         implements AStoreShoppingBagItemService {
 
@@ -72,8 +74,13 @@ public class AStoreShoppingBagItemServiceImpl extends ServiceImpl<AStoreShopping
         tempQueryWrapper.eq("product_id", aStoreShoppingBagAddParam.getProductId());
         AStoreShoppingBagItem temp = aStoreShoppingBagItemMapper.selectOne(tempQueryWrapper);
         // 已存在
-        if (temp != null)
-            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, ShoppingBagResultEnum.SHOPPING_BAG_ITEM_EXIST_ERROR.getResult());
+        if (temp != null) {
+            AStoreShoppingBagUpdateParam aStoreShoppingBagUpdateParam = new AStoreShoppingBagUpdateParam();
+            aStoreShoppingBagUpdateParam.setBagItemId(temp.getBagItemId());
+            aStoreShoppingBagUpdateParam.setProductAmount(temp.getProductAmount() + aStoreShoppingBagAddParam.getProductAmount());
+            return this.updateShoppingBagItem(aStoreShoppingBagUpdateParam, userId);
+        }
+//            throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, ShoppingBagResultEnum.SHOPPING_BAG_ITEM_EXIST_ERROR.getResult());
 
         // 商品不存在
         AStoreProductInfo product = aStoreProductInfoMapper.selectById(aStoreShoppingBagAddParam.getProductId());
@@ -93,6 +100,7 @@ public class AStoreShoppingBagItemServiceImpl extends ServiceImpl<AStoreShopping
         AStoreShoppingBagItem newShoppingBagItem = new AStoreShoppingBagItem();
         BeanUtil.copyProperties(aStoreShoppingBagAddParam, newShoppingBagItem);
         newShoppingBagItem.setUserId(userId);
+
         int insertResult = aStoreShoppingBagItemMapper.insert(newShoppingBagItem);
         if (insertResult > 0) return CommonServiceEnum.SUCCESS.getResult();
 

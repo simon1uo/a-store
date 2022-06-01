@@ -47,7 +47,6 @@ public class AStoreShoppingBagController {
             }
         }
         return ResponseResultGenerateUtil.success(shoppingBagItemsForSettle);
-
     }
 
     @PostMapping()
@@ -62,7 +61,7 @@ public class AStoreShoppingBagController {
         return ResponseResultGenerateUtil.success(updateResult);
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/{bagItemId}")
     public BaseResponseCommon deleteShoppingBagItem(@PathVariable("bagItemId") Long bagItemId, @TokenToUser AStoreUser loginUser) {
         AStoreShoppingBagItem shoppingBagItemDetailById = aStoreShoppingBagItemService.getShoppingBagItemDetailById(bagItemId);
         if (!loginUser.getUserId().equals(shoppingBagItemDetailById.getUserId())) {

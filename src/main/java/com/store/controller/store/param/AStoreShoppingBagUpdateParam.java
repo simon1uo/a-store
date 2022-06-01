@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class AStoreShoppingBagUpdateParam {
-    private Integer bagItemId;
+    private Long bagItemId;
     private Integer productAmount;
 }
