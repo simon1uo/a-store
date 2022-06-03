@@ -3,8 +3,8 @@ import { computed, onMounted, ref } from "vue"
 import { useUserAddressStore } from "@/stores/user-address"
 
 import type { IUserAddressData } from "@/service/user-address/type"
-import GlobalInputForm from "@/components/GlobalInputForm/src/GlobalInputForm.vue"
-import GlobalTable from "@/components/GlobalTable/src/GlobalTable.vue"
+import GlobalInputForm from "@/components/GlobalInputForm"
+import GlobalTable from "@/components/GlobalTable"
 
 import { addressEditFormConfig } from "@/views/StoreAccount/config/addressForm.config"
 import { addressTableConfig } from "../config/addressTable.config"

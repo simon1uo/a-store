@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { IShoppingBagItem } from "@/service/shopping-bag/type"
 import { computed, onMounted, ref } from "vue"
 import { useProductStore } from "@/stores/product"
-import GlobalFooter from "@/components/GlobalFooter/src/GlobalFooter.vue"
 import { useShoppingBagStore } from "@/stores/shopping-bag"
 import { useRouter } from "vue-router"
+
+import GlobalFooter from "@/components/GlobalFooter"
 
 const props = defineProps<{ id: any }>()
 

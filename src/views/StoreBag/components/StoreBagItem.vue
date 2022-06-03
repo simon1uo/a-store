@@ -14,6 +14,14 @@ const myBagItem = computed(() => props.bagItem)
 
 const shoppingBagStore = useShoppingBagStore()
 
+const userAddressStore = useUserAddressStore()
+
+onMounted(() => {
+    userAddressStore.getUserDefaultAddress()
+})
+
+const userDefaultAddress = computed(() => userAddressStore.userDefaultAddress)
+
 const handleAmountChange = () => {
     shoppingBagStore.updateBagItemAction({
         bagItemId: myBagItem.value.bagItemId,
@@ -24,14 +32,6 @@ const handleAmountChange = () => {
 const handleRemoveLink = () => {
     shoppingBagStore.removeBagItemAction(myBagItem.value.bagItemId)
 }
-
-const userAddressStore = useUserAddressStore()
-
-onMounted(() => {
-    userAddressStore.getUserDefaultAddress()
-})
-
-const userDefaultAddress = computed(() => userAddressStore.userDefaultAddress)
 </script>
 
 <template>

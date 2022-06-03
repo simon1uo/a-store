@@ -2,8 +2,8 @@
 import { computed } from "vue"
 import { useUserStore } from "@/stores/user"
 import router from "@/router"
-import GlobalFooter from "@/components/GlobalFooter/src/GlobalFooter.vue"
 import { useRoute } from "vue-router"
+import GlobalFooter from "@/components/GlobalFooter"
 
 const userStore = useUserStore()
 const userName = computed(() => userStore.userName)

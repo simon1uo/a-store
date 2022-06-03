@@ -1,14 +1,16 @@
 <script lang="ts" setup>
-import { computed, reactive, ref } from "vue"
-import GlobalFooter from "@/components/GlobalFooter/src/GlobalFooter.vue"
-import { ArrowRightBold } from "@element-plus/icons-vue"
+import { reactive, ref } from "vue"
 
-import type { FormInstance } from "element-plus"
+import GlobalFooter from "@/components/GlobalFooter"
+
 import { useUserStore } from "@/stores/user"
 
 import { signinRuleConfig } from "@/views/StoreSignIn/config/signin-rule.config"
 import { signupRuleConfig } from "@/views/StoreSignIn/config/signup-rule.config"
 import { getCache, removeCache, setCache } from "@/utils/local-cache"
+
+import type { FormInstance } from "element-plus"
+import { ArrowRightBold } from "@element-plus/icons-vue"
 import { ElNotification } from "element-plus"
 
 const userStore = useUserStore()
@@ -55,6 +57,7 @@ const handleSignInAction = () => {
 const validateCheckPassword = (rule: any, value: any, callback: any) => {
     if (value !== signupModel.userPassword) {
         callback(new Error("两次密码输入不一致"))
+        ElNotification.error("两次密码输入不一致")
     } else {
         callback()
     }
@@ -125,7 +128,7 @@ const handleSignUpAction = () => {
                     <div class="sign-in-subbody">
                         <div class="sign-in-forgot-password">
                             <a class="sign-in-link" href="#">
-                                忘记了 Apple&nbsp;ID 或 密码？
+                                忘记了您的 ID 或 密码？
                             </a>
                         </div>
 

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { useUserStore } from "@/stores/user"
-import { computed, ref, watch } from "vue"
-import { useRoute, useRouter } from "vue-router"
+import { computed, ref } from "vue"
+import { useRouter } from "vue-router"
+
+import GlobalDialog from "@/components/GlobalDialog"
+import GlobalInputForm from "@/components/GlobalInputForm"
+
 import { accountEditFormConfig } from "@/views/StoreAccount/config/accountEditForm.config"
 
-import GlobalDialog from "@/components/GlobalDialog/src/GlobalDialog.vue"
-import GlobalInputForm from "@/components/GlobalInputForm/src/GlobalInputForm.vue"
-
 const router = useRouter()
-const route = useRoute()
 const userStore = useUserStore()
 
 const userInfo = computed(() => userStore.userInfo)
@@ -16,16 +16,6 @@ const userInfo = computed(() => userStore.userInfo)
 const inputFormDialogRef = ref<InstanceType<any>>(null)
 
 const editUserInfo = ref({})
-
-watch(
-    () => editUserInfo,
-    (newValue: any) => {
-        // console.log(newValue)
-        // for (const item of accountEditFormConfig.formItems) {
-        //     defaultValue.value[`${item.field}`] = newValue[`${item.field}`]
-        // }
-    }
-)
 
 const handleEditUserInfoClick = () => {
     editUserInfo.value = userInfo.value

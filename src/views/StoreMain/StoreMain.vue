@@ -9,7 +9,7 @@ import { carouselCardConfig } from "@/views/StoreMain/config/carouselCard.config
 import { computed, onMounted, ref } from "vue"
 import { useMainStore } from "@/stores/main"
 
-import GlobalDialog from "@/components/GlobalDialog/src/GlobalDialog.vue"
+import GlobalDialog from "@/components/GlobalDialog"
 import ProductDetail from "@/views/ProductDetail/ProductDetail.vue"
 
 const mainStore = useMainStore()
