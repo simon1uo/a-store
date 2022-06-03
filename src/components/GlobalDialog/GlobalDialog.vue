@@ -7,18 +7,19 @@ const handleOpen = () => {
     isShowSymBol.value = true
 }
 
-const handleCloseBtn = () => {
+const handleClose = () => {
     isShowSymBol.value = false
 }
 
 defineExpose({
-    handleOpen
+    handleOpen,
+    handleClose
 })
 </script>
 
 <template>
     <div class="dialog-container" :class="{ show: isShowSymBol }">
-        <div class="dialog-close-btn" @click="handleCloseBtn">
+        <div class="dialog-close-btn" @click="handleClose">
             <span class="rc-overlay-close-svg"
                 ><svg
                     width="21"
@@ -43,8 +44,6 @@ defineExpose({
 <style lang="less" scoped>
 @media only screen and (min-width: 1441px) {
     .dialog-container {
-        margin-left: auto;
-        margin-right: auto;
         width: 980px;
     }
 }
@@ -56,7 +55,7 @@ defineExpose({
 
 .dialog-container.show {
     display: block;
-    position: absolute;
+    position: fixed;
     top: 0;
     z-index: 1000;
     .dialog-content {
