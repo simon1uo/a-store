@@ -9,6 +9,7 @@ import com.store.controller.store.param.AStoreUserSignInParam;
 import com.store.controller.store.param.AStoreUserSignUpParam;
 import com.store.controller.store.param.AStoreUserUpdateParam;
 import com.store.controller.store.vo.AStoreUserInfoVO;
+import com.store.controller.store.vo.AStoreUserSignInVO;
 import com.store.domain.AStoreUser;
 import com.store.exception.BusinessException;
 import com.store.service.AStoreUserService;
@@ -33,9 +34,12 @@ public class AStoreUserController {
 
         log.info("SignIn api,userAccount={},signInResult={}", aStoreUserSignInParam.getUserAccount(), signInResult);
 
+        AStoreUserSignInVO aStoreUserSignInVO = new AStoreUserSignInVO();
+        aStoreUserSignInVO.setToken(signInResult);
         //登录成功
         if (!StringUtils.isEmpty(signInResult) && signInResult.length() == CommonConstant.TOKEN_LENGTH) {
-            return ResponseResultGenerateUtil.success("欢迎光临！");
+            aStoreUserSignInVO.setMessage("登录成功");
+            return ResponseResultGenerateUtil.success(aStoreUserSignInVO);
         }
         //登录失败
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
