@@ -52,13 +52,13 @@ public class AStoreShoppingBagController {
     @PostMapping()
     public BaseResponseCommon addShoppingBagItem(@RequestBody AStoreShoppingBagAddParam aStoreShoppingBagAddParam, @TokenToUser AStoreUser loginUser) {
         String addResult = aStoreShoppingBagItemService.addShoppingBagItem(aStoreShoppingBagAddParam, loginUser.getUserId());
-        return ResponseResultGenerateUtil.success(addResult);
+        return ResponseResultGenerateUtil.success("添加到购物车成功");
     }
 
     @PutMapping()
     public BaseResponseCommon updateShoppingBagItem(@RequestBody AStoreShoppingBagUpdateParam aStoreShoppingBagUpdateParam, @TokenToUser AStoreUser loginUser) {
         String updateResult = aStoreShoppingBagItemService.updateShoppingBagItem(aStoreShoppingBagUpdateParam, loginUser.getUserId());
-        return ResponseResultGenerateUtil.success(updateResult);
+        return ResponseResultGenerateUtil.success("更新购物车成功");
     }
 
     @DeleteMapping("/{bagItemId}")
@@ -69,7 +69,7 @@ public class AStoreShoppingBagController {
         }
 
         Boolean deleteResult = aStoreShoppingBagItemService.deleteShoppingBagItemById(bagItemId, loginUser.getUserId());
-        return ResponseResultGenerateUtil.success(deleteResult);
+        return ResponseResultGenerateUtil.success("移除购物车成功");
     }
 
 }

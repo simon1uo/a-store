@@ -35,7 +35,7 @@ public class AStoreUserController {
 
         //登录成功
         if (!StringUtils.isEmpty(signInResult) && signInResult.length() == CommonConstant.TOKEN_LENGTH) {
-            return ResponseResultGenerateUtil.success(signInResult);
+            return ResponseResultGenerateUtil.success("欢迎光临！");
         }
         //登录失败
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
@@ -47,7 +47,7 @@ public class AStoreUserController {
 
         log.info("SignOut api,userInfo={},signOutResult={}", aStoreUser, signOutResult);
         if (signOutResult == 1) {
-            return ResponseResultGenerateUtil.success(signOutResult);
+            return ResponseResultGenerateUtil.success("退出登录成功");
         }
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
     }
@@ -56,7 +56,7 @@ public class AStoreUserController {
     public BaseResponseCommon<String> UserSignUp(@RequestBody AStoreUserSignUpParam aStoreUserSignUpParam) {
         String signUpResult = aStoreUserService.userSignUp(aStoreUserSignUpParam.getUserAccount(), aStoreUserSignUpParam.getUserPassword(), aStoreUserSignUpParam.getCheckPassword());
         if (CommonServiceEnum.SUCCESS.getResult().equals(signUpResult)) {
-            return ResponseResultGenerateUtil.success(signUpResult);
+            return ResponseResultGenerateUtil.success("注册用户成功");
         }
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
     }
@@ -78,6 +78,6 @@ public class AStoreUserController {
     public BaseResponseCommon updateUserInfo(@RequestBody AStoreUserUpdateParam aStoreUserUpdateParam, @TokenToUser AStoreUser aStoreUser) {
         if (aStoreUserUpdateParam == null) throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR);
         Boolean result = aStoreUserService.updateUserInfo(aStoreUserUpdateParam, aStoreUser.getUserId());
-        return ResponseResultGenerateUtil.success(result);
+        return ResponseResultGenerateUtil.success("修改用户信息成功");
     }
 }

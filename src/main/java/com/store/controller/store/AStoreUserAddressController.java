@@ -46,13 +46,13 @@ public class AStoreUserAddressController {
     }
 
     @PostMapping("/address")
-    public BaseResponseCommon<Boolean> addUserAddress(@RequestBody AStoreUserAddressAddParam aStoreUserAddressAddParam, @TokenToUser AStoreUser loginAStoreUser) {
+    public BaseResponseCommon addUserAddress(@RequestBody AStoreUserAddressAddParam aStoreUserAddressAddParam, @TokenToUser AStoreUser loginAStoreUser) {
         AStoreUserAddress aStoreUserAddress = new AStoreUserAddress();
         BeanUtil.copyProperties(aStoreUserAddressAddParam, aStoreUserAddress);
         aStoreUserAddress.setUserId(loginAStoreUser.getUserId());
         aStoreUserAddress.setDefaultFlag(0);
         Boolean saveResult = aStoreUserAddressService.saveUserAddress(aStoreUserAddress);
-        if (saveResult) return ResponseResultGenerateUtil.success(saveResult);
+        if (saveResult) return ResponseResultGenerateUtil.success("添加用户地址信息成功");
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
     }
 
@@ -69,7 +69,7 @@ public class AStoreUserAddressController {
         Boolean updateResult = aStoreUserAddressService.updateUserAddress(userAddress);
         //修改成功
         if (updateResult) {
-            return ResponseResultGenerateUtil.success("修改成功");
+            return ResponseResultGenerateUtil.success("修改地址信息成功");
         }
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
     }
@@ -83,7 +83,7 @@ public class AStoreUserAddressController {
         Boolean deleteResult = aStoreUserAddressService.deleteUserAddressById(addressId);
         //删除成功
         if (deleteResult) {
-            return ResponseResultGenerateUtil.success("删除默认地址成功");
+            return ResponseResultGenerateUtil.success("删除地址信息成功");
         }
         //删除失败
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
