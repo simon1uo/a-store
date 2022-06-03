@@ -7,6 +7,7 @@ import com.store.constant.CommonServiceEnum;
 import com.store.constant.ErrorCodeEnum;
 import com.store.controller.store.param.AStoreUserSignInParam;
 import com.store.controller.store.param.AStoreUserSignUpParam;
+import com.store.controller.store.param.AStoreUserUpdateParam;
 import com.store.controller.store.vo.AStoreUserInfoVO;
 import com.store.domain.AStoreUser;
 import com.store.exception.BusinessException;
@@ -28,7 +29,7 @@ public class AStoreUserController {
 
     @PostMapping("/signin")
     public BaseResponseCommon UserSignIn(@RequestBody AStoreUserSignInParam aStoreUserSignInParam) {
-        String signInResult = aStoreUserService.UserSignIn(aStoreUserSignInParam.getUserAccount(), aStoreUserSignInParam.getUserPassword());
+        String signInResult = aStoreUserService.userSignIn(aStoreUserSignInParam.getUserAccount(), aStoreUserSignInParam.getUserPassword());
 
         log.info("SignIn api,userAccount={},signInResult={}", aStoreUserSignInParam.getUserAccount(), signInResult);
 
@@ -42,7 +43,7 @@ public class AStoreUserController {
 
     @GetMapping("/signout")
     public BaseResponseCommon UserSignOut(@TokenToUser AStoreUser aStoreUser) {
-        int signOutResult = aStoreUserService.UserSignOut(aStoreUser.getUserId());
+        int signOutResult = aStoreUserService.userSignOut(aStoreUser.getUserId());
 
         log.info("SignOut api,userInfo={},signOutResult={}", aStoreUser, signOutResult);
         if (signOutResult == 1) {
@@ -53,11 +54,17 @@ public class AStoreUserController {
 
     @PostMapping("/signup")
     public BaseResponseCommon<String> UserSignUp(@RequestBody AStoreUserSignUpParam aStoreUserSignUpParam) {
-        String signUpResult = aStoreUserService.UserSignUp(aStoreUserSignUpParam.getUserAccount(), aStoreUserSignUpParam.getUserPassword(), aStoreUserSignUpParam.getCheckPassword());
+        String signUpResult = aStoreUserService.userSignUp(aStoreUserSignUpParam.getUserAccount(), aStoreUserSignUpParam.getUserPassword(), aStoreUserSignUpParam.getCheckPassword());
         if (CommonServiceEnum.SUCCESS.getResult().equals(signUpResult)) {
             return ResponseResultGenerateUtil.success(signUpResult);
         }
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
+    }
+
+    @GetMapping("/status")
+    public BaseResponseCommon getUserSignInStatus(@TokenToUser AStoreUser aStoreUser) {
+        if (aStoreUser != null) return ResponseResultGenerateUtil.success(true);
+        return ResponseResultGenerateUtil.success(false);
     }
 
     @GetMapping("/info")
@@ -65,5 +72,12 @@ public class AStoreUserController {
         AStoreUserInfoVO safetyUserInfo = aStoreUserService.getSafetyUser(aStoreUser);
         if (safetyUserInfo == null) throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
         return ResponseResultGenerateUtil.success(safetyUserInfo);
+    }
+
+    @PostMapping("/info")
+    public BaseResponseCommon updateUserInfo(@RequestBody AStoreUserUpdateParam aStoreUserUpdateParam, @TokenToUser AStoreUser aStoreUser) {
+        if (aStoreUserUpdateParam == null) throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR);
+        Boolean result = aStoreUserService.updateUserInfo(aStoreUserUpdateParam, aStoreUser.getUserId());
+        return ResponseResultGenerateUtil.success(result);
     }
 }

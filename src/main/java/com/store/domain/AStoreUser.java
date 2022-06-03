@@ -35,6 +35,21 @@ public class AStoreUser implements Serializable {
     private String userPassword;
 
     /**
+     *
+     */
+    private String userAvatarUrl;
+
+    /**
+     *
+     */
+    private String userEmail;
+
+    /**
+     *
+     */
+    private String userPhone;
+
+    /**
      * 注销标识字段(0-正常 1-已注销)
      */
     @TableLogic
