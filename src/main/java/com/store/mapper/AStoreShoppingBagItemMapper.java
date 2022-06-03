@@ -2,7 +2,6 @@ package com.store.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.store.domain.AStoreShoppingBagItem;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author Simon
@@ -10,7 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @createDate 2022-05-24 16:48:07
  * @Entity AStoreShoppingBagItem
  */
-@Mapper
 public interface AStoreShoppingBagItemMapper extends BaseMapper<AStoreShoppingBagItem> {
 
 }
