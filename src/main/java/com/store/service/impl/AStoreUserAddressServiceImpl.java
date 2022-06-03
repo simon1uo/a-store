@@ -1,6 +1,7 @@
 package com.store.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.store.constant.CommonServiceEnum;
 import com.store.constant.ErrorCodeEnum;
@@ -89,10 +90,30 @@ public class AStoreUserAddressServiceImpl extends ServiceImpl<AStoreUserAddressM
 
     @Override
     public Boolean deleteUserAddressById(Long addressId) {
-        AStoreUserAddress aStoreUserAddress = new AStoreUserAddress();
+        /*AStoreUserAddress aStoreUserAddress = new AStoreUserAddress();
         aStoreUserAddress.setAddressId(addressId);
         aStoreUserAddress.setIsDeleted(1);
-        return aStoreUserAddressMapper.updateById(aStoreUserAddress) > 0;
+        return aStoreUserAddressMapper.updateById(aStoreUserAddress) > 0;*/
+        return aStoreUserAddressMapper.deleteById(addressId) > 0;
+    }
+
+    @Override
+    public Boolean setDefaultUserAddress(Long addressId, Long userId) {
+        AStoreUserAddress defaultAddress = getDefaultAddress(userId);
+        if (defaultAddress != null) {
+            Long oldDefaultAddressId = defaultAddress.getAddressId();
+            UpdateWrapper<AStoreUserAddress> oldUpdateWrapper = new UpdateWrapper<>();
+            oldUpdateWrapper.set("default_flag", 0);
+            oldUpdateWrapper.eq("address_id", oldDefaultAddressId);
+            int updateResult = aStoreUserAddressMapper.update(null, oldUpdateWrapper);
+            if (updateResult < 0) throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        UpdateWrapper<AStoreUserAddress> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.set("default_flag", 1);
+        updateWrapper.eq("address_id", addressId);
+        return aStoreUserAddressMapper.update(null, updateWrapper) > 0;
+
     }
 
     /**
@@ -107,7 +128,7 @@ public class AStoreUserAddressServiceImpl extends ServiceImpl<AStoreUserAddressM
         queryWrapper.eq("default_flag", 1);
         AStoreUserAddress aStoreUserAddress = aStoreUserAddressMapper.selectOne(queryWrapper);
         if (aStoreUserAddress == null)
-            throw new BusinessException(ErrorCodeEnum.NULL_ERROR, CommonServiceEnum.DATABASE_ERROR.getResult());
+            return null;
         return aStoreUserAddress;
     }
 }

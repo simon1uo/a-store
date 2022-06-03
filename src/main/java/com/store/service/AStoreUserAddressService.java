@@ -37,27 +37,34 @@ public interface AStoreUserAddressService extends IService<AStoreUserAddress> {
     AStoreUserAddress getUserDefaultAddressByUserId(Long userId);
 
     /**
-     * 新增
+     * 新增地址
      *
-     * @param aStoreUserAddress
-     * @return
+     * @param aStoreUserAddress 添加地址实体
+     * @return 添加结果
      */
     Boolean saveUserAddress(AStoreUserAddress aStoreUserAddress);
 
     /**
-     * 修改
+     * 修改地址
      *
-     * @param aStoreUserAddress
-     * @return
+     * @param aStoreUserAddress 修改地址实体
+     * @return 修改结果
      */
     Boolean updateUserAddress(AStoreUserAddress aStoreUserAddress);
 
     /**
-     * 删除
+     * 删除地址
      *
-     * @param addressId
+     * @param addressId 地址id
      * @return
      */
     Boolean deleteUserAddressById(Long addressId);
 
+    /**
+     * 设置地址为默认地址
+     *
+     * @param addressId 地址id
+     * @return
+     */
+    Boolean setDefaultUserAddress(Long addressId, Long userId);
 }

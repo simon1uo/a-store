@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.store.constant.CommonServiceEnum;
 import com.store.constant.ErrorCodeEnum;
 import com.store.constant.UserResultEnum;
+import com.store.controller.store.param.AStoreUserUpdateParam;
 import com.store.controller.store.vo.AStoreUserInfoVO;
 import com.store.domain.AStoreUser;
 import com.store.domain.AStoreUserToken;
@@ -41,7 +42,7 @@ public class AStoreUserServiceImpl extends ServiceImpl<AStoreUserMapper, AStoreU
     private AStoreUserTokenMapper aStoreUserTokenMapper;
 
     @Override
-    public String UserSignIn(String userAccount, String userPassword) {
+    public String userSignIn(String userAccount, String userPassword) {
         // 输入不能为空
         if (StringUtils.isAnyBlank(userAccount, userPassword))
             throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_ACCOUNT_AND_PASSWORD_NULL.getResult());
@@ -97,7 +98,7 @@ public class AStoreUserServiceImpl extends ServiceImpl<AStoreUserMapper, AStoreU
     }
 
     @Override
-    public String UserSignUp(String userAccount, String userPassword, String checkPassword) {
+    public String userSignUp(String userAccount, String userPassword, String checkPassword) {
         // 不能为空
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword))
             throw new BusinessException(ErrorCodeEnum.PARAMS_ERROR, UserResultEnum.USER_ACCOUNT_AND_PASSWORD_NULL.getResult());
@@ -138,16 +139,40 @@ public class AStoreUserServiceImpl extends ServiceImpl<AStoreUserMapper, AStoreU
     }
 
     @Override
-    public int UserSignOut(long userId) {
+    public int userSignOut(long userId) {
         return aStoreUserTokenMapper.deleteById(userId);
     }
 
+    @Override
+    public Boolean updateUserInfo(AStoreUserUpdateParam userUpdateParam, long userId) {
+        log.info(userUpdateParam.toString());
+        AStoreUser aStoreUser = aStoreUserMapper.selectById(userId);
+        if (aStoreUser == null) throw new BusinessException(ErrorCodeEnum.NO_AUTH);
+
+        aStoreUser.setUserName(userUpdateParam.getUserName());
+        aStoreUser.setUserEmail(userUpdateParam.getUserEmail());
+        aStoreUser.setUserPhone(userUpdateParam.getUserPhone());
+
+        if (StringUtils.isNotBlank(userUpdateParam.getUserPassword())) {
+            String encryptPassword = MD5Util.MD5Encode(userUpdateParam.getUserPassword(), "UTF-8");
+            aStoreUser.setUserPassword(encryptPassword);
+        }
+
+        if (aStoreUserMapper.updateById(aStoreUser) > 0) return true;
+
+        return false;
+    }
+
     public AStoreUserInfoVO getSafetyUser(AStoreUser sourceUser) {
+        if (sourceUser == null) throw new BusinessException(ErrorCodeEnum.NULL_ERROR);
         log.info(sourceUser.toString());
         AStoreUserInfoVO safetyUser = new AStoreUserInfoVO();
 
         safetyUser.setUserAccount(sourceUser.getUserAccount());
         safetyUser.setUserName(sourceUser.getUserName());
+        safetyUser.setUserEmail(sourceUser.getUserEmail());
+        safetyUser.setUserAvatarUrl(sourceUser.getUserAvatarUrl());
+        safetyUser.setUserPhone(sourceUser.getUserPhone());
 
         return safetyUser;
     }

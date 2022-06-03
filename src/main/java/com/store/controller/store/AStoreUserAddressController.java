@@ -50,13 +50,14 @@ public class AStoreUserAddressController {
         AStoreUserAddress aStoreUserAddress = new AStoreUserAddress();
         BeanUtil.copyProperties(aStoreUserAddressAddParam, aStoreUserAddress);
         aStoreUserAddress.setUserId(loginAStoreUser.getUserId());
+        aStoreUserAddress.setDefaultFlag(0);
         Boolean saveResult = aStoreUserAddressService.saveUserAddress(aStoreUserAddress);
         if (saveResult) return ResponseResultGenerateUtil.success(saveResult);
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @PutMapping("/address")
-    public BaseResponseCommon<Boolean> updateAddress(@RequestBody AStoreUserAddressUpdateParam aStoreUserAddressUpdateParam, @TokenToUser AStoreUser loginAStoreUser) {
+    public BaseResponseCommon updateAddress(@RequestBody AStoreUserAddressUpdateParam aStoreUserAddressUpdateParam, @TokenToUser AStoreUser loginAStoreUser) {
         AStoreUserAddress aStoreUserAddress = aStoreUserAddressService.getUserAddressById(aStoreUserAddressUpdateParam.getAddressId());
         if (!loginAStoreUser.getUserId().equals(aStoreUserAddress.getUserId())) {
             throw new BusinessException(ErrorCodeEnum.NO_AUTH);
@@ -68,13 +69,13 @@ public class AStoreUserAddressController {
         Boolean updateResult = aStoreUserAddressService.updateUserAddress(userAddress);
         //修改成功
         if (updateResult) {
-            return ResponseResultGenerateUtil.success(updateResult);
+            return ResponseResultGenerateUtil.success("修改成功");
         }
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @DeleteMapping("/address/{addressId}")
-    public BaseResponseCommon<Boolean> deleteAddress(@PathVariable Long addressId, @TokenToUser AStoreUser loginAStoreUser) {
+    public BaseResponseCommon deleteAddress(@PathVariable Long addressId, @TokenToUser AStoreUser loginAStoreUser) {
         AStoreUserAddress aStoreUserAddress = aStoreUserAddressService.getUserAddressById(addressId);
         if (!loginAStoreUser.getUserId().equals(aStoreUserAddress.getUserId())) {
             throw new BusinessException(ErrorCodeEnum.NO_AUTH);
@@ -82,9 +83,22 @@ public class AStoreUserAddressController {
         Boolean deleteResult = aStoreUserAddressService.deleteUserAddressById(addressId);
         //删除成功
         if (deleteResult) {
-            return ResponseResultGenerateUtil.success(deleteResult);
+            return ResponseResultGenerateUtil.success("删除默认地址成功");
         }
         //删除失败
+        throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
+    }
+
+    @GetMapping("/address/default/{addressId}")
+    public BaseResponseCommon setDefaultAddress(@PathVariable Long addressId, @TokenToUser AStoreUser loginAStoreUser) {
+        AStoreUserAddress aStoreUserAddress = aStoreUserAddressService.getUserAddressById(addressId);
+        if (!loginAStoreUser.getUserId().equals(aStoreUserAddress.getUserId())) {
+            throw new BusinessException(ErrorCodeEnum.NO_AUTH);
+        }
+        Boolean setResult = aStoreUserAddressService.setDefaultUserAddress(addressId, aStoreUserAddress.getUserId());
+        if (setResult) {
+            return ResponseResultGenerateUtil.success("设置默认地址成功");
+        }
         throw new BusinessException(ErrorCodeEnum.SYSTEM_ERROR);
     }
 }

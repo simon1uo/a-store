@@ -4,15 +4,11 @@ import lombok.Data;
 
 @Data
 public class AStoreUserAddressAddParam {
-    private Long addressId;
-
     private Long userId;
 
     private String userName;
 
     private String userPhone;
-
-    private Byte defaultFlag;
 
     private String provinceName;
 
