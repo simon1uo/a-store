@@ -8,3 +8,9 @@ export interface IUserSignUpData {
     userPassword: string
     checkPassword: string
 }
+
+export interface IUserUpdateData {
+    userName: string
+    userEmail: string
+    userPhone: string
+}

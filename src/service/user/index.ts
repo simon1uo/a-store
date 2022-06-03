@@ -1,12 +1,17 @@
 import api from "@/service"
-import type { IUserSignInData, IUserSignUpData } from "@/service/user/type"
+import type {
+    IUserSignInData,
+    IUserSignUpData,
+    IUserUpdateData
+} from "@/service/user/type"
 
 /*用户信息相关API*/
 const userAPI = {
     userSignIn: "/user/signin",
     userSignOut: "/user/signout",
     userSignUp: "/user/signup",
-    userInfo: "/user/info"
+    userInfo: "/user/info",
+    userStatus: "/user/status"
 }
 
 export function userSignIn(signInData: IUserSignInData) {
@@ -28,6 +33,14 @@ export function userSignUp(signUpData: IUserSignUpData) {
     })
 }
 
+export function getUserSignInStatus() {
+    return api.get(userAPI.userStatus)
+}
+
 export function getUserInfo() {
     return api.get(userAPI.userInfo)
+}
+
+export function updateUserInfo(updateInfoData: IUserUpdateData) {
+    return api.post(userAPI.userInfo, { ...updateInfoData })
 }
