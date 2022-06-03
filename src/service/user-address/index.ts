@@ -8,7 +8,8 @@ const userAddressAPI = {
     getUserAddressById: "/user/address/", // +addressId
     addUserAddress: "/user/address",
     updateUserAddress: "/user/address",
-    deleteUserAddressById: "/user/address/" // + addressId
+    deleteUserAddressById: "/user/address/", // + addressId
+    setDefaultUserAddress: "/user/address/default/" // + addressId
 }
 
 export function getUserAddressList() {
@@ -24,13 +25,17 @@ export function getUserAddressById(addressId: string) {
 }
 
 export function addUserAddress(userAddressData: IUserAddressData) {
-    return api.post(userAddressAPI.addUserAddress, { userAddressData })
+    return api.post(userAddressAPI.addUserAddress, { ...userAddressData })
 }
 
 export function updateUserAddress(userAddressData: IUserAddressData) {
-    return api.put(userAddressAPI.updateUserAddress, { userAddressData })
+    return api.put(userAddressAPI.updateUserAddress, { ...userAddressData })
 }
 
-export function deleteUserAddress(addressId: string) {
-    return api.delete(userAddressAPI.deleteUserAddressById, { data: addressId })
+export function deleteUserAddress(addressId: number) {
+    return api.delete(userAddressAPI.deleteUserAddressById + addressId)
+}
+
+export function setDefaultUserAddress(addressId: number) {
+    return api.get(userAddressAPI.setDefaultUserAddress + addressId)
 }

@@ -1,6 +1,8 @@
 import { defineStore } from "pinia"
 import {
     getUserInfo,
+    getUserSignInStatus,
+    updateUserInfo,
     userSignIn,
     userSignOut,
     userSignUp
@@ -14,12 +16,15 @@ export const useUserStore = defineStore({
     id: "user",
     state: () => ({
         userInfo: getCache("userInfo") ?? {},
-        token: getCache("token") ?? ""
+        token: getCache("token") ?? "",
+        userStatus: ""
     }),
     getters: {
         isUserSignIn: (state) => {
+            const userStore = useUserStore()
+            userStore.getUserSignInStatusAction()
             const status = false
-            if (state.token) {
+            if (state.token && state.userStatus) {
                 return true
             }
             return status
@@ -52,13 +57,28 @@ export const useUserStore = defineStore({
         },
 
         async userSignOutAction() {
+            router.push("/")
+            ElNotification.success("退出登录成功")
             const result = await userSignOut()
             this.token = ""
             this.userInfo = ""
             removeCache("userInfo")
             removeCache("token")
-            ElNotification.success("退出登录成功")
-            router.push("/")
+        },
+
+        async getUserSignInStatusAction() {
+            const result = await getUserSignInStatus()
+            // console.log(result.data)
+            this.userStatus = result.data
+        },
+
+        async updateUserInfoAction(payload: any) {
+            const result = await updateUserInfo(payload)
+            console.log(result)
+
+            const getUserInfoResult = await getUserInfo()
+            this.userInfo = getUserInfoResult.data
+            setCache("userInfo", this.userInfo)
         }
     }
 })

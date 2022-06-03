@@ -12,6 +12,8 @@
     },
     "dependencies": {
         "@element-plus/icons-vue": "^1.1.4",
+        "china-area-data": "^5.0.1",
+        "element-china-area-data": "^5.0.2",
         "less": "^4.1.2",
         "normalize.css": "^8.0.1",
         "pinia": "^2.0.13",

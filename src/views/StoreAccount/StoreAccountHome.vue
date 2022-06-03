@@ -3,6 +3,7 @@ import { computed } from "vue"
 import { useUserStore } from "@/stores/user"
 import router from "@/router"
 import GlobalFooter from "@/components/GlobalFooter/GlobalFooter.vue"
+import { useRoute } from "vue-router"
 
 const userStore = useUserStore()
 const userName = computed(() => userStore.userName)
@@ -14,6 +15,9 @@ const handleGoto = (target: string) => {
 const handleSignOut = () => {
     userStore.userSignOutAction()
 }
+
+const route = useRoute()
+const activateRoute = computed(() => route.name)
 </script>
 
 <template>
@@ -29,8 +33,16 @@ const handleSignOut = () => {
                 <h1>{{ userName }}, 你好！</h1>
             </div>
             <div class="header-sub-navigation">
-                <a @click="handleGoto('/manage')">个人账户管理</a>
-                <a @click="handleGoto('/address')">收货地址管理</a>
+                <a
+                    @click="handleGoto('/manage')"
+                    :class="{ active: activateRoute === 'manage' }"
+                    >个人账户管理</a
+                >
+                <a
+                    @click="handleGoto('/address')"
+                    :class="{ active: activateRoute === 'address' }"
+                    >收货地址管理</a
+                >
             </div>
             <div class="home-content">
                 <router-view />
@@ -88,7 +100,7 @@ const handleSignOut = () => {
 
     .home-header {
         display: flex;
-        justify-content: start;
+        justify-content: center;
 
         h1 {
             padding-top: 59px;
@@ -107,6 +119,10 @@ const handleSignOut = () => {
 
         a:hover {
             text-decoration: underline;
+        }
+
+        .active {
+            font-weight: 600;
         }
     }
 
