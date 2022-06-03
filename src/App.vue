@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import GlobalHeaderNav from "@/components/GlobalHeaderNav/GlobalHeaderNav.vue"
+import GlobalHeaderNav from "@/components/GlobalHeaderNav/src/GlobalHeaderNav.vue"
 </script>
 
 <template>
     <GlobalHeaderNav />
-    <router-view v-slot="{ Component }">
-        <transition name="fade">
-            <component :is="Component" />
-        </transition>
-    </router-view>
+    <router-view />
 </template>
 
 <style></style>

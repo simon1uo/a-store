@@ -87,7 +87,7 @@
                     height: 18px;
                     display: block;
                     background-size: 14px 72px;
-                    background: url("./static/images/footer-breadcrumbs-logo.svg")
+                    background: url("../static/images/footer-breadcrumbs-logo.svg")
                         no-repeat;
                     position: relative;
                     z-index: 2;
@@ -113,7 +113,7 @@
                         height: 18px;
                         background-size: 8px 36px;
                         background-repeat: no-repeat;
-                        background-image: url(./static/images/footer-breadcrumbs-right-icon.svg);
+                        background-image: url(../static/images/footer-breadcrumbs-right-icon.svg);
                         margin-right: 11px;
                         content: "";
                         display: inline-block;

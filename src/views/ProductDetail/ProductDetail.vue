@@ -18,7 +18,6 @@ const productDetailContentInfos = computed(
 const router = useRouter()
 
 const handleBuyBtn = () => {
-    // console.log(productDetailInfo.value.productId)
     router.push("/store/product/" + productDetailInfo.value.productId)
 }
 

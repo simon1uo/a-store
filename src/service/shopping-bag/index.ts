@@ -8,7 +8,7 @@ const shoppingBagAPI = {
     getBag: "/bag",
     getBagItemByIds: "/bag/settle",
     addToBag: "/bag",
-    modifyBag: "/bag",
+    updateBag: "/bag",
     deleteBag: "/bag/" // + id
 }
 
@@ -21,13 +21,9 @@ export function addToBag(param: IShoppingBagAddItem) {
 }
 
 export function updateBagItem(param: IShoppingBagUpdateItem) {
-    return api.put(shoppingBagAPI.modifyBag, param)
+    return api.put(shoppingBagAPI.updateBag, param)
 }
 
 export function removeBagItem(bagItemId: number) {
     return api.delete(shoppingBagAPI.deleteBag + bagItemId)
 }
-
-/*export function getByCartItemIds(params: IShoppingBagAddItem) {
-    return api.get(shoppingBagAPI.getBagItemByIds, { params })
-}*/

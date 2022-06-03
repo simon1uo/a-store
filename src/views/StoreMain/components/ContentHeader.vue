@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-import "element-plus/theme-chalk/display.css"
-</script>
+<script lang="ts" setup></script>
 
 <template>
     <div class="content-header">

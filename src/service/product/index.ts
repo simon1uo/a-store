@@ -9,7 +9,3 @@ const productAPI = {
 export function getProductDetail(productId: number) {
     return api.get(productAPI.getProductDetail + productId)
 }
-
-export function searchProduct(param: string) {
-    return api.get(productAPI.searchProduct, { data: param })
-}

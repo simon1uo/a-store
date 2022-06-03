@@ -4,8 +4,8 @@ import { computed, ref, watch } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { accountEditFormConfig } from "@/views/StoreAccount/config/accountEditForm.config"
 
-import GlobalDialog from "@/components/GlobalDialog/GlobalDialog.vue"
-import GlobalInputForm from "@/components/GlobalInputForm/GlobalInputForm.vue"
+import GlobalDialog from "@/components/GlobalDialog/src/GlobalDialog.vue"
+import GlobalInputForm from "@/components/GlobalInputForm/src/GlobalInputForm.vue"
 
 const router = useRouter()
 const route = useRoute()

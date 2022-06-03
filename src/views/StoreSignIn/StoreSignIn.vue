@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, reactive, ref } from "vue"
-import GlobalFooter from "@/components/GlobalFooter/GlobalFooter.vue"
+import GlobalFooter from "@/components/GlobalFooter/src/GlobalFooter.vue"
 import { ArrowRightBold } from "@element-plus/icons-vue"
 
 import type { FormInstance } from "element-plus"

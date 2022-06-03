@@ -2,7 +2,7 @@
 import { computed } from "vue"
 import { useUserStore } from "@/stores/user"
 import router from "@/router"
-import GlobalFooter from "@/components/GlobalFooter/GlobalFooter.vue"
+import GlobalFooter from "@/components/GlobalFooter/src/GlobalFooter.vue"
 import { useRoute } from "vue-router"
 
 const userStore = useUserStore()

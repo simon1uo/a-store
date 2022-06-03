@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import GlobalFooter from "@/components/GlobalFooter/GlobalFooter.vue"
+import GlobalFooter from "@/components/GlobalFooter/src/GlobalFooter.vue"
 import StoreBagItem from "@/views/StoreBag/components/StoreBagItem.vue"
 import { computed, onMounted } from "vue"
 import { useShoppingBagStore } from "@/stores/shopping-bag"

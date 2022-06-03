@@ -1,14 +1,19 @@
 <script lang="ts" setup>
-import { computed } from "vue"
+import { computed, onMounted } from "vue"
 import { useShoppingBagStore } from "@/stores/shopping-bag"
+import { useUserAddressStore } from "@/stores/user-address"
 
 const props = defineProps({
-    bagItem: {}
+    bagItem: {
+        type: Object,
+        required: true
+    }
 })
 
-const myBagItem: any = computed(() => props.bagItem)
+const myBagItem = computed(() => props.bagItem)
 
 const shoppingBagStore = useShoppingBagStore()
+
 const handleAmountChange = () => {
     shoppingBagStore.updateBagItemAction({
         bagItemId: myBagItem.value.bagItemId,
@@ -19,6 +24,14 @@ const handleAmountChange = () => {
 const handleRemoveLink = () => {
     shoppingBagStore.removeBagItemAction(myBagItem.value.bagItemId)
 }
+
+const userAddressStore = useUserAddressStore()
+
+onMounted(() => {
+    userAddressStore.getUserDefaultAddress()
+})
+
+const userDefaultAddress = computed(() => userAddressStore.userDefaultAddress)
 </script>
 
 <template>
@@ -93,10 +106,17 @@ const handleRemoveLink = () => {
                                 ></path>
                             </svg>
                         </div>
-                        <div class="content-text">
+                        <div
+                            class="content-text"
+                            v-if="userDefaultAddress.addressId"
+                        >
                             送货至
                             <div class="common-link">
-                                <span>广东 珠海 金湾区</span>
+                                <span>{{
+                                    userDefaultAddress.provinceName
+                                }}</span>
+                                <span>{{ userDefaultAddress.cityName }}</span>
+                                <span>{{ userDefaultAddress.regionName }}</span>
                             </div>
                         </div>
                     </div>

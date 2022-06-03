@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from "vue"
 import { useUserAddressStore } from "@/stores/user-address"
 
 import type { IUserAddressData } from "@/service/user-address/type"
-import GlobalInputForm from "@/components/GlobalInputForm/GlobalInputForm.vue"
+import GlobalInputForm from "@/components/GlobalInputForm/src/GlobalInputForm.vue"
 import GlobalTable from "@/components/GlobalTable/src/GlobalTable.vue"
 
 import { addressEditFormConfig } from "@/views/StoreAccount/config/addressForm.config"
@@ -46,6 +46,16 @@ const inputFormData = ref({
 
 const inputFormSubmitType = ref("")
 
+const resetInputForm = () => {
+    inputFormData.value = {
+        addressId: "",
+        userName: "",
+        userPhone: "",
+        pcrAddress: [""],
+        detailAddress: ""
+    }
+}
+
 const handleEditDefaultAddressClick = () => {
     inputFormSubmitType.value = "edit"
     inputFormTitle.value = "编辑默认地址"
@@ -55,25 +65,13 @@ const handleEditDefaultAddressClick = () => {
 
 const handleAddAddressClick = () => {
     inputFormSubmitType.value = "add"
-    inputFormData.value = {
-        addressId: "",
-        userName: "",
-        userPhone: "",
-        pcrAddress: [""],
-        detailAddress: ""
-    }
+    resetInputForm()
     inputFormTitle.value = "添加地址信息"
     inputFormDialogRef.value.handleOpen()
 }
 
 const handleCancelClick = () => {
-    inputFormData.value = {
-        addressId: "",
-        userName: "",
-        userPhone: "",
-        pcrAddress: [""],
-        detailAddress: ""
-    }
+    resetInputForm()
     inputFormDialogRef.value.handleClose()
 }
 
@@ -107,7 +105,6 @@ const handleDeleteClick = (addressId: any) => {
 }
 
 const handleEditClick = (addressItem: any) => {
-    console.log(addressItem)
     inputFormSubmitType.value = "edit"
     inputFormTitle.value = "编辑地址"
     inputFormData.value = addressItem

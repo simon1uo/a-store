@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import GlobalFooter from "@/components/GlobalFooter/GlobalFooter.vue"
+import GlobalFooter from "@/components/GlobalFooter/src/GlobalFooter.vue"
 </script>
 
 <template>

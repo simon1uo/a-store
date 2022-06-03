@@ -2,7 +2,7 @@
 import type { IShoppingBagItem } from "@/service/shopping-bag/type"
 import { computed, onMounted, ref } from "vue"
 import { useProductStore } from "@/stores/product"
-import GlobalFooter from "@/components/GlobalFooter/GlobalFooter.vue"
+import GlobalFooter from "@/components/GlobalFooter/src/GlobalFooter.vue"
 import { useShoppingBagStore } from "@/stores/shopping-bag"
 import { useRouter } from "vue-router"
 
@@ -22,7 +22,7 @@ const itemAmount = ref(1)
 const shoppingBagStore = useShoppingBagStore()
 const router = useRouter()
 const handleAddToShoppingBag = () => {
-    const bagItem: IShoppingBagItem = {
+    const bagItem = {
         productId: itemId.value,
         productAmount: itemAmount.value
     }
