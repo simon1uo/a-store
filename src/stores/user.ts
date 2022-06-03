@@ -17,17 +17,11 @@ export const useUserStore = defineStore({
     state: () => ({
         userInfo: getCache("userInfo") ?? {},
         token: getCache("token") ?? "",
-        userStatus: ""
+        userStatus: false
     }),
     getters: {
         isUserSignIn: (state) => {
-            const userStore = useUserStore()
-            userStore.getUserSignInStatusAction()
-            const status = false
-            if (state.token && state.userStatus) {
-                return true
-            }
-            return status
+            return state.token && state.userStatus
         },
         userName: (state) => {
             return state.userInfo.userName
@@ -68,17 +62,15 @@ export const useUserStore = defineStore({
 
         async getUserSignInStatusAction() {
             const result = await getUserSignInStatus()
-            // console.log(result.data)
             this.userStatus = result.data
         },
 
         async updateUserInfoAction(payload: any) {
             const result = await updateUserInfo(payload)
-            console.log(result)
-
             const getUserInfoResult = await getUserInfo()
             this.userInfo = getUserInfoResult.data
             setCache("userInfo", this.userInfo)
+            ElNotification.success(result.data)
         }
     }
 })

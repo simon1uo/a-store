@@ -39,19 +39,27 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-    document.body.scrollTop = 0
-    // firefox
-    document.documentElement.scrollTop = 0
-    const loginGuardNameList = ["/store/bag", "/store/order"]
+    const loginGuardNameList = [
+        "/store/bag",
+        "/store/order",
+        "/store/account",
+        "/store/product/"
+    ]
     const userStore = useUserStore()
+    await userStore.getUserSignInStatusAction()
     const isSignIn = userStore.isUserSignIn
+
     if (loginGuardNameList.includes(to.path)) {
         if (isSignIn) {
             next()
         } else {
-            next({
-                path: "/signin"
-            })
+            next({ name: "StoreSignIn" })
+        }
+    } else if (to.path === "/signin") {
+        if (isSignIn) {
+            next({ name: "StoreMain" })
+        } else {
+            next()
         }
     } else {
         next()

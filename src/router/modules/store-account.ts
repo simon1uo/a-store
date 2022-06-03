@@ -1,5 +1,6 @@
 export default {
     path: "/store/account",
+    name: "StoreAccount",
     component: () => import("@/views/StoreAccount/StoreAccountHome.vue"),
     children: [
         {
