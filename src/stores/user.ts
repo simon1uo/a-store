@@ -31,13 +31,13 @@ export const useUserStore = defineStore({
         async userSignInAction(payload: IUserSignInData) {
             const signInResult = await userSignIn(payload)
 
-            this.token = signInResult.data
+            this.token = signInResult.data.token
             setCache("token", this.token)
 
             const getUserInfoResult = await getUserInfo()
             this.userInfo = getUserInfoResult.data
             setCache("userInfo", this.userInfo)
-            ElNotification.success("登录成功")
+            ElNotification.success(signInResult.data.message)
 
             router.push("/")
         },
@@ -46,16 +46,16 @@ export const useUserStore = defineStore({
             const signUpResult = await userSignUp(payload)
             setCache("userAccount", payload.userAccount)
             removeCache("userPassword")
-            ElNotification.success("注册成功")
+            ElNotification.success(signUpResult.data)
             router.push("/signin")
         },
 
         async userSignOutAction() {
             router.push("/")
-            ElNotification.success("退出登录成功")
             const result = await userSignOut()
             this.token = ""
             this.userInfo = ""
+            ElNotification.success(result.data)
             removeCache("userInfo")
             removeCache("token")
         },
