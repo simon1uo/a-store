@@ -70,7 +70,7 @@ const handleSignOut = () => {
 </script>
 
 <template>
-    <div class="nav-container" :class="isToggleActive ? 'active' : ''">
+    <div class="nav-container" :class="{ active: isToggleActive }">
         <nav :class="{ 'move-up': isSearchBarActive }">
             <ul class="mobile-nav">
                 <li>
@@ -134,7 +134,7 @@ const handleSignOut = () => {
 
         <!-- End of navigation menu items -->
 
-        <div class="search-container" :class="isSearchHide ? 'hide' : ''">
+        <div class="search-container" :class="{ hide: isSearchHide }">
             <div class="link-search"></div>
             <div class="search-bar">
                 <form action="">
@@ -167,7 +167,7 @@ const handleSignOut = () => {
 
         <div class="mobile-search-container">
             <div class="link-search"></div>
-            <div class="search-bar" :class="isSearchBarActive ? 'active' : ''">
+            <div class="search-bar" :class="{ active: isSearchBarActive }">
                 <form action="">
                     <input
                         type="text"
