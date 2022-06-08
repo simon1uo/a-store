@@ -220,7 +220,7 @@ public class AStoreUserServiceImpl extends ServiceImpl<AStoreUserMapper, AStoreU
      * @return 结果token值
      */
     private String getNewToken(String timeStr, Long userId) {
-        String src = timeStr + userId + NumberUtil.genRandomNum(4);
+        String src = timeStr + userId + NumberUtil.generateRandomNum(4);
         return TokenUtil.generateToken(src);
     }
 }

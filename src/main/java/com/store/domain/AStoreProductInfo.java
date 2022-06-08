@@ -61,7 +61,7 @@ public class AStoreProductInfo implements Serializable {
     /**
      * 商品库存数量
      */
-    private Object stockNum;
+    private Integer stockNum;
 
     /**
      * 商品标签

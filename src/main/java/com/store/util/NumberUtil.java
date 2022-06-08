@@ -11,7 +11,7 @@ public class NumberUtil {
      * @param length 随机数长度
      * @return 随机数结果
      */
-    public static int genRandomNum(int length) {
+    public static int generateRandomNum(int length) {
         int num = 1;
         double random = Math.random();
         if (random < 0.1) {
@@ -35,4 +35,11 @@ public class NumberUtil {
         return matcher.matches();
     }
 
+
+    public static String generateOrderNo() {
+        StringBuffer buffer = new StringBuffer(String.valueOf(System.currentTimeMillis()));
+        int num = generateRandomNum(4);
+        buffer.append(num);
+        return buffer.toString();
+    }
 }
